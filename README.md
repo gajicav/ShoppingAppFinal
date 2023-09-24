@@ -1,10 +1,10 @@
 # ShoppingAppFinal
 Shopalog - Group 4 Final Project
 Group Member	Role
-Alexander	Project Manager
-Conrad	UI/UX Designer
-Brayden	Backend developer
-Will	Frontend developer
+Alexander - Project Manager
+Conrad - UI/UX Designer
+Brayden - Backend developer
+Will - Frontend developer
 Introduction
 Shopalog will be a shopping list application to help people record and organize purchases they intend to make. With it, you will be able to create a list of items, and for each item you add to the list, you will enter the name and price of the item and optionally attach a photo. The list will be able to be sorted by item name, price, or time added, and the total cost of the items will always be displayed. Additionally, the shopping list will be able to be exported to a CSV file for use with spreadsheet apps like Excel to help you keep track of your purchases and spending.
 

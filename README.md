@@ -6,9 +6,9 @@ Brayden Cummins, Will Blaker, Conrad Hale, Alex Gajic
 ## Introduction
 Have you ever needed to have an app to keep track of your shopping lists? Have you ever wanted to attach a picture to the shopping list so you can remember what to buy? ShopALong can help you:
   
-* Manage and keep track of many differnet shopping lists.
+* Manage and keep track of many different shopping lists.
 * Add photos to specific items in your list so you remember what the item looks like.
-* Add substitution items under certain items incase the main item is out of stock.
+* Add substitution items under certain items in case the main item is out of stock.
 * Export your shopping list to a CSV so you can view your list in excel.
 * Add prices to your shopping items to see the total cost of your list(s).
   

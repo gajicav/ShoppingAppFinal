@@ -1,5 +1,5 @@
 # ShopALong - Group 4 Final Project
-Design Document  
+## Design Document  
   
 Brayden Cummins, Will Blaker, Conrad Hale, Alex Gajic
 

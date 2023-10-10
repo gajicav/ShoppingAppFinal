@@ -23,106 +23,97 @@ Additionally, the shopping list will be able to be exported to a CSV file for us
 
 ## Functional Requirements
 
-### Requirement 1: Record Monthly House Expenses
+### Requirement 1: Create/Edit Shopping Lists
 
 #### Scenario
 
-As a user living with multiple roommates, I want to be able to record our monthly house expenses.
+As a user who buys groceries, I want to be able to create/edit shopping lists. 
   
 #### Dependencies
 
-Monthly house expenses are fulfilled.
+You have items you want to add to a shopping list.
   
 #### Assumptions
 
-House expenses are all in United States Dollars (USD).
-  
-Monthly expenses consist of rent, electric/gas, water/sewer, wifi, and other.
+A shopping list is a list of items in a grocery store.
+
+A grocery item consists of a name, description, price, and a photo.
   
 #### Examples
 
 1.1
   
-**Given** the water/sewer bill for the current month is $75.80.  
+**Given** I have a group of grocery items I want to buy.
 
-**When** I input $75.80 in the water/sewer bill box.  
+**When** I input the items into a grocery list.
 
-**Then** I can save the $75.80 water/sewer bill to the app.
+**Then** I can save the list to the app to look at/edit later.
   
 1.2
   
-**Given** rent is $3000 for the current month.  
+**Given** I want to create multiple shopping lists for my next grocery visit.
 
-**When** I input $3000 in the rent box.  
+**When** I create a list for the bathroom items and the kitchen items.
 
-**Then** I can save the $3000 rent bill to the app.  
+**Then** I can differentiate my items into different lists based on what room they go in.
   
 1.3
   
-**Given** the wifi bill for the current month is $60.  
+**Given** I want to take pictures of the items on my shopping list. 
 
-**When** I input $60 in the wifi bill box.  
+**When** I take a picture of an item. 
 
-**Then** I can save the $60 wifi bill to the app.  
+**Then** I can save the picture to the item in the shopping list.
   
 1.4
   
-**Given** the electric/gas bill for the current month is $230.  
+**Given** The items on my shopping lists have a name, description, and price.
 
-**When** I input $230 in the electric/gas bill box.  
+**When** I input the name, description, and price.
 
-**Then** I can save the $230 electric/gas bill to the app.
- 
-1.5
+**Then** I can save the name, description, and price of the item on the shopping list.
 
-**Given** the other expenses is $100 for the month.
-
-**When** I input adsadfsdsfad in the other bill box.
-
-**Then** i will not be able to save the other expense bill to the app 
-and will get a error toast message of other bill box not inputted correctly.
-
-### Requirement 2: Send Reminders
+### Requirement 2: Export shopping list to CSV
 
 #### Scenario
 
-As a user inputting house expenses, each time I save an expense, all household members will receive a reminder to pay their share of that certain bill.
+As a user who makes a lot of purchases, I want to be able to export shopping lists to a CSV.
   
 #### Dependencies
 
-House expense has been saved to the app. 
+A shopping list has been created with items in the list.
   
 #### Assumptions
 
-Each household member has an active phone plan.
+Your shopping list has items in the list.
   
-Each household member created an account
+You want to export and view the list in another program.
   
 #### Examples
 
 2.1
   
-**Given** the water/sewer bill , $75.80 , for the current month has been inputted.  
+**Given** I created a shopping list with items.  
 
-**When** I click the save button.  
+**When** I click the export to CSV button.
 
-**Then** all household members will get a water/sewer bill reminder of $75.80 sent to their phone.
+**Then** I can download a CSV file of my shopping list.
   
 2.2 
   
-**Given** the electric/gas bill ,  $230 , for the current month has been inputted.
+**Given** I downloaded my shopping list to a CSV final.
 
-**When** I click the save button.  
+**When** I open the CSV file. 
 
-**Then** all household members will get an electric/gas bill reminder of $230 sent to their phone.
+**Then** I can see all the items that I added to the list.
   
 2.3 
   
-**Given** the wifi bill , $60 , for the current month has been inputted. 
+**Given** I opened the CSV file that I downloaded.
 
-**When** I click the save button.  
+**When** I view the items in the CSV.
 
-**Then** all household members will get a wifi bill reminder of $60 sent to their phone.
+**Then** I can see all the attributes of the items that I entered in the app. 
   
 ## Class Diagram
   
@@ -130,28 +121,11 @@ Each household member created an account
  
  ## Class Diagram Description
  
- **MainActivity:** The first screen that the user will see when the app loads. This screen will allow the option to enter costs/expenses.
- 
- **RetrofitInstance** Bootstrap class required for Retrofit
- 
- **HouseHold:** Noun class that represents a household.
- 
- **Member:** Noun class that represents a member.
-  
- **Payment:** Noun class that represents a payment.
- 
-**IHouseholdDAO:** Hold household data.
-
-**IMemberDAO:** Hold member data.
-
-**IPaymentDAO:** Holds payment data.
+**Need to describe the different classes in the class diagram and what they do**
 
 ## Scrum Roles
 
-* DevOps/Product Owner/Scrum Master: Brayden Cummins
-* Frontend Developer: Will and Alex
-* Integration Developer: Conrad
-
-## Weekly Meeting
-
-Teams Meeting Link:
+* Project Manager: Alex
+* Frontend Developer: Will
+* Backend Developer: Brayden Cummins
+* UI/UX Designer: Conrad

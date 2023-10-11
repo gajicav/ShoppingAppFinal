@@ -116,12 +116,20 @@ You want to export and view the list in another program.
 **Then** I can see all the attributes of the items that I entered in the app. 
   
 ## Class Diagram
-  
-**Need to add class diagram**
+
+![image](https://github.com/gajicav/ShoppingAppFinal/assets/71296854/f9c29678-5c7e-464d-b979-f3f4f703efab)
  
  ## Class Diagram Description
  
-**Need to describe the different classes in the class diagram and what they do**
+**ItemDTO**: Holds the data of an item
+
+**ShoppingListDTO:** Holds the data of a shopping list and contains a list of ItemDTO to manage items within a shopping list.
+
+**ItemDAO and ShoppingListDAO**: Responsible for managing the data of the application, such as saving, updating, deleting, and retrieving items and shopping lists
+
+**ItemService and ShoppingListService**: Use ItemDAO and ShoppingListDAO to interact with the data and perform operations like creating, editing, deleting items and shopping lists, calculating the total cost of a list, and exporting a list to CSV.
+
+**ShoppingListController**: Takes the user input from the UI, calls the appropriate methods in the service layer, and updates the UI accordingly
 
 ## Scrum Roles
 

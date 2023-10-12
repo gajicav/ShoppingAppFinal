@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,12 +67,17 @@
 </header>
 <div class="container">
     <h2>Start your list</h2>
-    <form>
-        <label for="item">Item:</label>
-        <input type="text" id="item" name="item" placeholder="Enter your Item name">
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="price" placeholder="Enter the item price">
-        <input type="submit" value="Submit">
+    <p th:text="${item}"/>
+
+    <form action="#" th:action="@{/saveItem}" th:object="${item}"
+          method="GET"><br/>
+        <label>Item:</label>
+        <input type="text" name="name" th:field="*{name}"/><br/>
+        <label>Description:</label>
+        <input type="text" name="description" th:field="*{desc}"/><br/>
+        <label>Price:</label>
+        <input type="text" name="price" th:field="*{price}"/><br/>
+        <button name="submit" type="submit" value="Submit">Submit</button>
     </form>
 </div>
 </body>

@@ -2,8 +2,10 @@ package com.shoppinglist.shoppinglist.service;
 
 import com.shoppinglist.shoppinglist.dao.ItemDAO;
 import com.shoppinglist.shoppinglist.dto.Item;
+import org.springframework.stereotype.Component;
 
-public class ItemServiceStub {
+@Component
+public class ItemServiceStub implements ItemService{
     private ItemDAO itemDAO;
 
     public ItemServiceStub(){}

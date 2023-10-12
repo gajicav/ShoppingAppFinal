@@ -22,28 +22,28 @@ public class ShoppingListService implements IShoppingListService {
 
     @Override
     @Transactional
-    @CachePut(value="items", key="#listItem.itemId")
+    @CachePut(value = "items", key = "#listItem.itemId")
     public ListItem save(ListItem listItem) {
         return shoppingListDAO.save(listItem);
     }
 
     @Override
     @Transactional
-    @Cacheable(value="items")
+    @Cacheable(value = "items")
     public List<ListItem> fetchAll() {
         return shoppingListDAO.fetchAll();
     }
 
     @Override
     @Transactional
-    @Cacheable(value="items", key="#id")
+    @Cacheable(value = "items", key = "#id")
     public ListItem fetchById(int id) throws NoSuchElementException {
         return shoppingListDAO.fetch(id);
     }
 
     @Override
     @Transactional
-    @CacheEvict(value="items", key="#id")
+    @CacheEvict(value = "items", key = "#id")
     public void delete(int id) throws NoSuchElementException {
         shoppingListDAO.delete(id);
     }

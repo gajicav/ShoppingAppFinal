@@ -1,7 +1,6 @@
 package com.shoppinglist.shoppinglist.dto;
 
 import jakarta.persistence.*;
-import jdk.jfr.Unsigned;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,7 +15,7 @@ import static jakarta.persistence.TemporalType.TIMESTAMP;
 @Table
 public class ListItem {
     @Id
-    @GeneratedValue(strategy=IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Integer itemId;
 
     @Column(nullable = false)

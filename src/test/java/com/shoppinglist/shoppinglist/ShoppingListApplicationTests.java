@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = ShoppingListApplication.class)
 public class ShoppingListApplicationTests {
@@ -37,7 +36,7 @@ public class ShoppingListApplicationTests {
         try {
             ListItem firstItem = shoppingListService.fetchAll().get(0);
             assertEquals(item, firstItem, "Saved mock item is not equal to first item in table");
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Could not retrieve first item in table");
         }
 

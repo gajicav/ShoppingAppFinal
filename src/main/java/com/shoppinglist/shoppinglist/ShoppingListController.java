@@ -70,7 +70,7 @@ public class ShoppingListController {
      * @param item a JSON representation of an item object.
      * @return the newly created item object.
      */
-    @PostMapping(path="/save", consumes="application/json", produces="application/json")
+    @PostMapping(path = "/save", consumes = "application/json", produces = "application/json")
     public ListItem createSpecimen(@RequestBody ListItem item) {
         try {
             return shoppingListService.save(item);

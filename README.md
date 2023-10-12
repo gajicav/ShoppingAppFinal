@@ -7,14 +7,14 @@ Brayden Cummins, Will Blaker, Conrad Hale, Alex Gajic
 Have you ever needed to have an app to keep track of your shopping lists? Have you ever wanted to attach a picture to the shopping list so you can remember what to buy? ShopALong can help you:
   
 * Manage and keep track of many different shopping lists.
-* Add photos to specific items in your list so you remember what the item looks like.
-* Add substitution items under certain items in case the main item is out of stock.
+* Add photos to specific items in your list so you remember what the listItem looks like.
+* Add substitution items under certain items in case the main listItem is out of stock.
 * Export your shopping list to a CSV so you can view your list in excel.
 * Add prices to your shopping items to see the total cost of your list(s).
   
 Shopalog will be a shopping list application to help people record and organize purchases they intend to make. 
-With it, you will be able to create a list of items, and for each item you add to the list, you will enter the name and price of the item and optionally attach a photo. 
-The list will be able to be sorted by item name, price, or time added, and the total cost of the items will always be displayed. 
+With it, you will be able to create a list of items, and for each listItem you add to the list, you will enter the name and price of the listItem and optionally attach a photo. 
+The list will be able to be sorted by listItem name, price, or time added, and the total cost of the items will always be displayed. 
 Additionally, the shopping list will be able to be exported to a CSV file for use with spreadsheet apps like Excel to help you keep track of your purchases and spending.
 
 ## Storyboard
@@ -37,7 +37,7 @@ You have items you want to add to a shopping list.
 
 A shopping list is a list of items in a grocery store.
 
-A grocery item consists of a name, description, price, and a photo.
+A grocery listItem consists of a name, description, price, and a photo.
   
 #### Examples
 
@@ -61,9 +61,9 @@ A grocery item consists of a name, description, price, and a photo.
   
 **Given** I want to take pictures of the items on my shopping list. 
 
-**When** I take a picture of an item. 
+**When** I take a picture of an listItem. 
 
-**Then** I can save the picture to the item in the shopping list.
+**Then** I can save the picture to the listItem in the shopping list.
   
 1.4
   
@@ -71,7 +71,7 @@ A grocery item consists of a name, description, price, and a photo.
 
 **When** I input the name, description, and price.
 
-**Then** I can save the name, description, and price of the item on the shopping list.
+**Then** I can save the name, description, and price of the listItem on the shopping list.
 
 ### Requirement 2: Export shopping list to CSV
 
@@ -121,7 +121,7 @@ You want to export and view the list in another program.
  
  ## Class Diagram Description
  
-**ItemDTO**: Holds the data of an item
+**ItemDTO**: Holds the data of an listItem
 
 **ShoppingListDTO:** Holds the data of a shopping list and contains a list of ItemDTO to manage items within a shopping list.
 
@@ -137,3 +137,11 @@ You want to export and view the list in another program.
 * Frontend Developer: Will
 * Backend Developer: Brayden Cummins
 * UI/UX Designer: Conrad
+
+
+## TODO
+* Make shopping list table so multiple lists can exist
+* Add user support + mysql
+* Allow exporting lists to csv
+* Develop frontend
+* What else?

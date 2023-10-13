@@ -4,10 +4,13 @@ import com.shoppinglist.shoppinglist.dto.ListItem;
 import com.shoppinglist.shoppinglist.service.IShoppingListService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Controller
 public class ShoppingListController {
@@ -97,5 +100,25 @@ public class ShoppingListController {
         }
     }
 
+    /**
+     * Search for items based on a query string and display the results.
+     * The method performs a case-insensitive substring match on item names.
+     * If the item name contains the query string, it is included in the results.
+     * The results are then added to the model and displayed on the page.
+     *
+     * @param query The search query string provided by the user.
+     * @param model The Spring Model object to bind variables to the view.
+     * @return The name of the Thymeleaf template to be rendered (index).
+     */
+    @GetMapping("/search")
+    public String search(@RequestParam String query, Model model) {
+        List<ListItem> items = shoppingListService.fetchAll()
+            .stream()
+            .filter(item -> item.getItemName().toLowerCase().contains(query.toLowerCase()))
+            .collect(Collectors.toList());
+
+        model.addAttribute("items", items);
+        return "index";
+    }
     // Todo: Add error page + privacy page.
 }

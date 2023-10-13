@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Home</title>
 </head>
+
 <body>
+
 <header>
   <h1>Shopping List</h1>
   <p>ShopALong - Group 4 Final Project</p>
 </header>
-<div class="container">
+
+<div class="enterListInfo">
   <h2>Start your list</h2>
   <form method="post" th:action="@{/save}" th:object="${item}">
-    <label for="item">Item:</label>
-    <input id="item" placeholder="Enter the item name" th:field="*{name}">
+
+    <div class="form-group">
+      <label for="item">Item:</label>
+        <input id="item" placeholder="Enter the item name" th:field="*{name}">
+    </div>
+    <div class="form-group">
     <label for="price">Price:</label>
-    <input id="price" placeholder="Enter the item price" th:field="*{price}">
+      <input id="price" placeholder="Enter the item price" th:field="*{price}">
+    </div>
+    <div class="form-group">
     <label for="quantity">Quantity:</label>
-    <input id="quantity" placeholder="Enter the item quantity" th:field="*{quantity}">
+      <input id="quantity" placeholder="Enter the item quantity" th:field="*{quantity}">
+    </div>
     <input type="submit" value="Save item">
   </form>
 </div>
-<div class="container">
+
+<div class="table">
   <form method="get" th:action="@{/search}">
     <input name="query" placeholder="Search items..." required type="text">
     <button type="submit">Search</button>
@@ -43,5 +55,6 @@
     </tr>
   </table>
 </div>
+
 </body>
 </html>

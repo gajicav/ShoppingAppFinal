@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -65,35 +64,35 @@
 <header>
   <h1>Shopping List</h1>
 </header>
-<form th:action="@{/search}" method="get">
-  <input type="text" name="query" placeholder="Search items..." required>
-  <button type="submit">Search</button>
-</form>
-
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Quantity</th>
-  </tr>
-  <tr th:each="item : ${items}">
-    <td th:text="${item.itemId}"></td>
-    <td th:text="${item.itemName}"></td>
-    <td th:text="${item.itemPrice}"></td>
-    <td th:text="${item.quantity}"></td>
-  </tr>
-</table>
-
 <div class="container">
   <h2>Start your list</h2>
   <form>
     <label for="listItem">Item:</label>
-    <input id="listItem" name="listItem" placeholder="Enter your Item name" type="text">
+    <input id="listItem" name="listItem" placeholder="Enter your Item name" type="text" required>
     <label for="price">Price:</label>
-    <input id="price" name="price" placeholder="Enter the listItem price" type="text">
+    <input id="price" name="price" placeholder="Enter the item price" type="number" step="0.01" required>
     <input type="submit" value="Submit">
   </form>
+</div>
+<div class="container">
+  <form th:action="@{/search}" method="get">
+    <input type="text" name="query" placeholder="Search items..." required>
+    <button type="submit">Search</button>
+  </form>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+    <tr th:each="item : ${items}">
+      <td th:text="${item.itemId}"></td>
+      <td th:text="${item.itemName}"></td>
+      <td th:text="${item.itemPrice}"></td>
+      <td th:text="${item.quantity}"></td>
+    </tr>
+  </table>
 </div>
 </body>
 </html>

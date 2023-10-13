@@ -22,8 +22,8 @@ public class ShoppingListApplicationTests {
     public void testAddingAndUpdatingItem() {
         ListItem item = new ListItem();
 
-        item.setItemName("Banana");
-        item.setItemPrice(1.25);
+        item.setName("Banana");
+        item.setPrice(1.25);
         item.setQuantity(5);
 
         item = shoppingListService.save(item);
@@ -40,7 +40,7 @@ public class ShoppingListApplicationTests {
             System.out.println("Could not retrieve first item in table");
         }
 
-        item.setItemName("Apple");
+        item.setName("Apple");
 
         item = shoppingListService.save(item);
 
@@ -49,6 +49,6 @@ public class ShoppingListApplicationTests {
         System.out.println("Updated mock item");
         System.out.println(item);
 
-        assertNotEquals(item.getCreated(), item.getLastUpdated(), "Updated timestamp has not changed");
+        assertNotEquals(item.getCreated(), item.getUpdated(), "Updated timestamp has not changed");
     }
 }

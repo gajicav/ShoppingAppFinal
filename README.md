@@ -154,5 +154,6 @@ updates the UI accordingly
 * Make shopping list table so multiple lists can exist
 * Add user support + mysql
 * Allow exporting lists to csv
-* Develop frontend
+* Validate data
+* Use AJAX
 * What else?

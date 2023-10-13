@@ -27,24 +27,22 @@ public class ShoppingListController {
      * @return home/index.html
      */
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("item", new ListItem());
         return "index";
     }
 
     /**
-     * Save an item and redirect to the home page.
-     *
-     * @return home/index.html
+     * Save an item and redirect to the root endpoint.
      */
     @PostMapping("/save")
     public String save(ListItem item) {
         try {
-            createSpecimen(item);
+            createListItem(item);
         } catch (Exception e) {
-            // No error page yet
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
-        return "index";
+        return "redirect:/";
     }
 
     /**
@@ -55,8 +53,8 @@ public class ShoppingListController {
      * @param id the unique ID for the item.
      * @return a JSON representation of the item object if it was found.
      */
-    @GetMapping("/{id}")
-    public ListItem fetchSpecimen(@PathVariable int id) {
+    @GetMapping("/get/{id}")
+    public ListItem fetchListItem(@PathVariable int id) {
         try {
             return shoppingListService.fetchById(id);
         } catch (NoSuchElementException e) {
@@ -73,8 +71,8 @@ public class ShoppingListController {
      * @param item a JSON representation of an item object.
      * @return the newly created item object.
      */
-    @PostMapping(path = "/save", consumes = "application/json", produces = "application/json")
-    public ListItem createSpecimen(@RequestBody ListItem item) {
+    @PostMapping(path = "/post", consumes = "application/json", produces = "application/json")
+    public ListItem createListItem(@RequestBody ListItem item) {
         try {
             return shoppingListService.save(item);
         } catch (IllegalArgumentException e) {
@@ -91,7 +89,7 @@ public class ShoppingListController {
      * @param id the unique ID for the item.
      */
     @DeleteMapping("/delete/{id}/")
-    public void deleteSpecimen(@PathVariable int id) {
+    public void deleteListItem(@PathVariable int id) {
         try {
             shoppingListService.delete(id);
         } catch (NoSuchElementException e) {
@@ -114,9 +112,10 @@ public class ShoppingListController {
     public String search(@RequestParam String query, Model model) {
         List<ListItem> items = shoppingListService.fetchAll()
             .stream()
-            .filter(item -> item.getItemName().toLowerCase().contains(query.toLowerCase()))
+            .filter(item -> item.getName().toLowerCase().contains(query.toLowerCase()))
             .collect(Collectors.toList());
 
+        model.addAttribute("item", new ListItem());
         model.addAttribute("items", items);
         return "index";
     }

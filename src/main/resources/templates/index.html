@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -64,6 +65,26 @@
 <header>
   <h1>Shopping List</h1>
 </header>
+<form th:action="@{/search}" method="get">
+  <input type="text" name="query" placeholder="Search items..." required>
+  <button type="submit">Search</button>
+</form>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+  </tr>
+  <tr th:each="item : ${items}">
+    <td th:text="${item.itemId}"></td>
+    <td th:text="${item.itemName}"></td>
+    <td th:text="${item.itemPrice}"></td>
+    <td th:text="${item.quantity}"></td>
+  </tr>
+</table>
+
 <div class="container">
   <h2>Start your list</h2>
   <form>

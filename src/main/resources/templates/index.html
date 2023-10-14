@@ -35,10 +35,10 @@
   </form>
 </div>
 
-<div class="table">
+<div class="tableAndSearch">
   <form method="get" th:action="@{/search}">
     <input name="query" placeholder="Search items..." required type="text">
-    <button type="submit">Search</button>
+    <button name="submit" type="submit">Search</button>
   </form>
   <table>
     <tr>

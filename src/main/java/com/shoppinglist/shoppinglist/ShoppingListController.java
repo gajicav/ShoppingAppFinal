@@ -36,9 +36,13 @@ public class ShoppingListController {
      * Save an item and redirect to the root endpoint.
      */
     @PostMapping("/save")
-    public String save(ListItem item) {
+    public String saveItem(ListItem item) {
         try {
             createListItem(item);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
@@ -74,7 +78,7 @@ public class ShoppingListController {
     @PostMapping(path = "/post", consumes = "application/json", produces = "application/json")
     public ListItem createListItem(@RequestBody ListItem item) {
         try {
-            return shoppingListService.save(item);
+            return shoppingListService.saveItem(item);
         } catch (IllegalArgumentException e) {
             e.fillInStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);

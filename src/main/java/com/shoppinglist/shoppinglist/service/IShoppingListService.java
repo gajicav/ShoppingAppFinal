@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public interface IShoppingListService {
-    ListItem save(ListItem item);
+    ListItem saveItem(ListItem item);
 
     List<ListItem> fetchAll();
 

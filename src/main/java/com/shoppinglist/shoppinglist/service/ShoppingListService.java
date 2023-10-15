@@ -17,8 +17,8 @@ public class ShoppingListService implements IShoppingListService {
     }
 
     @Override
-    public ListItem save(ListItem item) {
-        return shoppingListDAO.save(item);
+    public ListItem saveItem(ListItem item) {
+        return shoppingListDAO.saveItem(item);
     }
 
     @Override

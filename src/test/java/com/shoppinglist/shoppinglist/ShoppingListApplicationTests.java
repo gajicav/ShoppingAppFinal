@@ -26,7 +26,7 @@ public class ShoppingListApplicationTests {
         item.setPrice(1.25);
         item.setQuantity(5);
 
-        item = shoppingListService.save(item);
+        item = shoppingListService.saveItem(item);
 
         assertNotNull(item, "Mock item not created");
 
@@ -42,7 +42,7 @@ public class ShoppingListApplicationTests {
 
         item.setName("Apple");
 
-        item = shoppingListService.save(item);
+        item = shoppingListService.saveItem(item);
 
         assertNotNull(item, "Mock item not updated");
 

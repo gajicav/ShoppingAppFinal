@@ -2,6 +2,8 @@ package com.shoppinglist.shoppinglist;
 
 import com.shoppinglist.shoppinglist.dto.ListItem;
 import com.shoppinglist.shoppinglist.service.IShoppingListService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class ShoppingListController {
 
     private final IShoppingListService shoppingListService;
+    private final Logger logger = LoggerFactory.getLogger(ShoppingListController.class);
 
     public ShoppingListController(IShoppingListService shoppingListService) {
         this.shoppingListService = shoppingListService;
@@ -44,6 +47,7 @@ public class ShoppingListController {
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (Exception e) {
+            logger.error("Error while saving item: {}", e.getMessage()); // Log the error
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
         return "redirect:/";
@@ -63,6 +67,7 @@ public class ShoppingListController {
             return shoppingListService.fetchById(id);
         } catch (NoSuchElementException e) {
             e.fillInStackTrace();
+            logger.error("Item with ID {} not found: {}", id, e.getMessage()); // Log the error
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
@@ -81,6 +86,7 @@ public class ShoppingListController {
             return shoppingListService.saveItem(item);
         } catch (IllegalArgumentException e) {
             e.fillInStackTrace();
+            logger.error("Error while creating item: {}", e.getMessage()); // Log the error
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
@@ -98,6 +104,7 @@ public class ShoppingListController {
             shoppingListService.delete(id);
         } catch (NoSuchElementException e) {
             e.fillInStackTrace();
+            logger.error("Error while deleting item with ID {}: {}", id, e.getMessage()); // Log the error
             throw new ResponseStatusException(HttpStatus.OK, e.getMessage(), e);
         }
     }

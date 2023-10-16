@@ -1,6 +1,5 @@
 package com.shoppinglist.shoppinglist;
-
-import com.shoppinglist.shoppinglist.dto.ListItem;
+ 
 import com.shoppinglist.shoppinglist.service.IShoppingListService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

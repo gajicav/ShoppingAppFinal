@@ -28,7 +28,7 @@ public class ShoppingListDAO implements IShoppingListDAO {
 
     @Override
     public ListItem fetch(int id) throws NoSuchElementException {
-        return shoppingListRepository.findById(id).orElseThrow();
+        return shoppingListRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Item not found with ID: " + id));
     }
 
     @Override

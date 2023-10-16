@@ -37,7 +37,7 @@ public class ShoppingListApplicationTests {
             assertEquals(item, firstItem, "Saved mock item is not equal to first item in table");
         } catch (Exception e) {
             System.out.println("Could not retrieve first item in table");
-        }
+        }// setName() 方法更新保存的项目的名称为 “Apple”。然后再次使用 save() 方法保存它。然后通过比较它们的时间戳来检查更新后的项目是否等于原始项目。
 
         item.setName("Apple");
 

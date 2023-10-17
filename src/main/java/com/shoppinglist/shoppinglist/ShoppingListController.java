@@ -2,11 +2,13 @@ package com.shoppinglist.shoppinglist;
 
 import com.shoppinglist.shoppinglist.dto.ListItem;
 import com.shoppinglist.shoppinglist.service.IShoppingListService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,8 +19,15 @@ public class ShoppingListController {
 
     private final IShoppingListService shoppingListService;
 
+
     public ShoppingListController(IShoppingListService shoppingListService) {
         this.shoppingListService = shoppingListService;
+    }
+
+
+    private void handleException(Exception e, HttpStatus status) {
+        e.fillInStackTrace();
+        throw new ResponseStatusException(status, e.getMessage(), e);
     }
 
     /**
@@ -40,10 +49,11 @@ public class ShoppingListController {
         try {
             createListItem(item);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+            handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return "redirect:/";
     }
+
 
     /**
      * Fetch an item with the given ID, returns one of the following status codes:
@@ -62,7 +72,6 @@ public class ShoppingListController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
-
     /**
      * Create or update an item object, returns one of the following status codes:
      * 201: successfully created a new item.
@@ -71,6 +80,8 @@ public class ShoppingListController {
      * @param item a JSON representation of an item object.
      * @return the newly created item object.
      */
+
+
     @PostMapping(path = "/post", consumes = "application/json", produces = "application/json")
     public ListItem createListItem(@RequestBody ListItem item) {
         try {
@@ -93,8 +104,7 @@ public class ShoppingListController {
         try {
             shoppingListService.delete(id);
         } catch (NoSuchElementException e) {
-            e.fillInStackTrace();
-            throw new ResponseStatusException(HttpStatus.OK, e.getMessage(), e);
+            handleException(e, HttpStatus.OK);
         }
     }
 

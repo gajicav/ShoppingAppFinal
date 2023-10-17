@@ -15,8 +15,17 @@
   <p>ShopALong - Group 4 Final Project</p>
 </header>
 
+<!-- Error message div (hidden by default) -->
+<div id="errorDiv" class="error-label" style="display: none">
+  Error! <span id="errorMessage"></span>
+</div>
+
+<!-- Your other HTML content here -->
+
+
+
 <div class="enterListInfo">
-  <h2>Start your list</h2>
+  <h2>Start your list (saif)</h2>
   <form method="post" th:action="@{/save}" th:object="${item}">
 
     <div class="form-group">
@@ -24,12 +33,14 @@
         <input id="item" placeholder="Enter the item name" th:field="*{name}">
     </div>
     <div class="form-group">
+
     <label for="price">Price:</label>
-      <input id="price" placeholder="Enter the item price" th:field="*{price}">
+      <input id="price"  placeholder="Enter the item price"  pattern="^\d+(\.\d+)?$" th:field="*{price}">
     </div>
     <div class="form-group">
+
     <label for="quantity">Quantity:</label>
-      <input id="quantity" placeholder="Enter the item quantity" th:field="*{quantity}">
+      <input id="quantity" type="number" placeholder="Enter the item quantity" th:field="*{quantity}">
     </div>
     <input type="submit" value="Save item">
   </form>

@@ -16,21 +16,45 @@ public class ShoppingListDAO implements IShoppingListDAO {
         this.shoppingListRepository = shoppingListRepository;
     }
 
+    /**
+     * Save an item to the shopping list.
+     *
+     * @param item The item to be saved.
+     * @return The saved item.
+     */
     @Override
-    public ListItem save(ListItem item) {
+    public ListItem saveItem(ListItem item) {
         return shoppingListRepository.save(item);
     }
 
+    /**
+     * Fetch all shopping list items.
+     *
+     * @return A list of all shopping list items.
+     */
     @Override
     public List<ListItem> fetchAll() {
         return shoppingListRepository.findAll();
     }
 
+    /**
+     * Fetch a shopping list item by ID.
+     *
+     * @param id The ID of the item to fetch.
+     * @return The fetched item.
+     * @throws NoSuchElementException if the item is not found.
+     */
     @Override
     public ListItem fetch(int id) throws NoSuchElementException {
         return shoppingListRepository.findById(id).orElseThrow();
     }
 
+    /**
+     * Delete a shopping list item by its ID.
+     *
+     * @param id The ID of the item to delete.
+     * @throws NoSuchElementException if the item does not exist.
+     */
     @Override
     @Transactional
     public void delete(int id) throws NoSuchElementException {

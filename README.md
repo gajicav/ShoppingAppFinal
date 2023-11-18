@@ -156,4 +156,5 @@ updates the UI accordingly
 * Allow exporting lists to csv
 * Validate data
 * Use AJAX
+* Add logging support
 * What else?

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Home</title>
+</head>
+
+<body>
+
+<header>
+  <h1>Shopping List</h1>
+  <p>ShopALong - Group 4 Final Project</p>
+</header>
+
+<div class="enterListInfo">
+  <h2>Start your list</h2>
+  <form method="post" th:action="@{/save}" th:object="${item}">
+
+    <div class="form-group">
+      <label for="item">Item:</label>
+        <input id="item" placeholder="Enter the item name" th:field="*{name}">
+    </div>
+    <div class="form-group">
+    <label for="price">Price:</label>
+      <input id="price" placeholder="Enter the item price" th:field="*{price}">
+    </div>
+    <div class="form-group">
+    <label for="quantity">Quantity:</label>
+      <input id="quantity" placeholder="Enter the item quantity" th:field="*{quantity}">
+    </div>
+    <input type="submit" value="Save item">
+  </form>
+</div>
+
+<div class="tableAndSearch">
+  <form method="get" th:action="@{/search}">
+    <input name="query" placeholder="Search items..." required type="text">
+    <button name="submit" type="submit">Search</button>
+  </form>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+    <tr th:each="item : ${items}">
+      <td th:text="${item.itemId}"></td>
+      <td th:text="${item.name}"></td>
+      <td th:text="${item.price}"></td>
+      <td th:text="${item.quantity}"></td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

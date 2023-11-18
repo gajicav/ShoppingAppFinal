@@ -25,7 +25,7 @@ help you keep track of your purchases and spending.
 
 ## Storyboard
 
-**Need to add Storyboard picture. Example picture of what the UI will look like.**
+![Untitled](https://github.com/gajicav/ShoppingAppFinal/assets/89746050/0086308b-8ed0-4ae9-b3f8-3f851c220188)
 
 ## Functional Requirements
 
@@ -150,11 +150,6 @@ updates the UI accordingly
 * UI/UX Designer: Conrad
 
 ## TODO
-
-* Make shopping list table so multiple lists can exist
 * Add user support + mysql
 * Allow exporting lists to csv
-* Validate data
-* Use AJAX
-* Add logging support
 * What else?

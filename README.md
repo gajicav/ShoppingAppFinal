@@ -9,11 +9,11 @@ Brayden Cummins, Will Blaker, Conrad Hale, Alex Gajic
 Have you ever needed to have an app to keep track of your shopping lists? Have you ever wanted to attach a picture to
 the shopping list so you can remember what to buy? ShopALong can help you:
 
-* Manage and keep track of many different shopping lists.
-* Add photos to specific items in your list so you remember what the item looks like.
-* Add substitution items under certain items in case the main item is out of stock.
-* Export your shopping list to a CSV so you can view your list in excel.
-* Add prices to your shopping items to see the total cost of your list(s).
+- Manage and keep track of many different shopping lists.
+- Add photos to specific items in your list so you remember what the item looks like.
+- Add substitution items under certain items in case the main item is out of stock.
+- Export your shopping list to a CSV so you can view your list in excel.
+- Add prices to your shopping items to see the total cost of your list(s).
 
 Shopalog will be a shopping list application to help people record and organize purchases they intend to make.
 With it, you will be able to create a list of items, and for each item you add to the list, you will enter the name
@@ -144,12 +144,13 @@ updates the UI accordingly
 
 ## Scrum Roles
 
-* Project Manager: Alex
-* Frontend Developer: Will
-* Backend Developer: Brayden Cummins
-* UI/UX Designer: Conrad
+- Project Manager: Alex
+- Frontend Developer: Will
+- Backend Developer: Brayden Cummins
+- UI/UX Designer: Conrad
 
 ## TODO
-* Add user support + mysql
-* Allow exporting lists to csv
-* What else?
+
+- Add user support + mysql
+- Allow exporting lists to csv
+- What else?

@@ -13,7 +13,7 @@ export default defineConfig({
   },
   plugins: [
     VueRouter({
-      dataFetching: true,
+      dataFetching: true
     }),
     Vue(),
     AutoImport({

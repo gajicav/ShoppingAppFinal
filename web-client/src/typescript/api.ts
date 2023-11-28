@@ -9,7 +9,7 @@ export async function fetchShoppingList(id: string): Promise<SLResponse> {
 }
 
 export async function deleteShoppingList(id: string) {
-  await fetch(`/api/lists/${id}`, { method: 'DELETE'})
+  await fetch(`/api/lists/${id}`, { method: 'DELETE' })
 }
 
 export async function createShoppingList(
@@ -50,7 +50,7 @@ export async function fetchListItem(id: string): Promise<SLItemResponse> {
 }
 
 export async function deleteListItem(id: string) {
-  await fetch(`/api/items/${id}`, { method: 'DELETE'})
+  await fetch(`/api/items/${id}`, { method: 'DELETE' })
 }
 
 async function extractJsonOrError(result: Response) {

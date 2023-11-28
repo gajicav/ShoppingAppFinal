@@ -44,7 +44,7 @@ if (!shoppingList.value.list) {
     </div>
   </Transition>
 
-  <div class="flex flex-row justify-between items-end mb-6">
+  <div class="mb-6 flex flex-row items-end justify-between">
     <button
       class="flex items-center justify-center rounded-full border border-green-200 bg-green-300/30 px-4 py-2 text-green-700 hover:bg-green-300/40 dark:border-green-600/10 dark:bg-green-700/20 dark:text-green-300 hover:dark:bg-green-700/25"
       type="button"
@@ -53,14 +53,13 @@ if (!shoppingList.value.list) {
       Add item
     </button>
 
-
     <div class="text-4xl font-light leading-snug">
       {{ shoppingList.list.description }}
     </div>
 
     <div class="flex flex-row">
       <button
-        class="flex items-center mr-2 justify-center rounded-full border border-blue-200 bg-blue-300/30 px-4 py-2 text-blue-700 hover:bg-blue-300/40 dark:border-blue-600/10 dark:bg-blue-700/20 dark:text-blue-300 hover:dark:bg-blue-700/25"
+        class="mr-2 flex items-center justify-center rounded-full border border-blue-200 bg-blue-300/30 px-4 py-2 text-blue-700 hover:bg-blue-300/40 dark:border-blue-600/10 dark:bg-blue-700/20 dark:text-blue-300 hover:dark:bg-blue-700/25"
         type="button"
       >
         <PencilSquareIcon class="mr-2 h-5 w-5"></PencilSquareIcon>
@@ -87,14 +86,17 @@ if (!shoppingList.value.list) {
     <li
       v-for="item in shoppingList.items"
       :key="item.id"
-      class="rounded-2xl border border-zinc-200 bg-zinc-100 shadow-md dark:border-zinc-750 dark:bg-zinc-800 p-4 text-zinc-700 font-medium dark:text-zinc-400 text-sm"
+      class="rounded-2xl border border-zinc-200 bg-zinc-100 p-4 text-sm font-medium text-zinc-700 shadow-md dark:border-zinc-750 dark:bg-zinc-800 dark:text-zinc-400"
     >
       <div class="grid grid-cols-3 grid-rows-2 gap-3 text-sm">
-        <span class="font-semibold overflow-ellipsis leading-snug text-lg text-zinc-800 dark:text-zinc-300">
+        <span
+          class="overflow-ellipsis text-lg font-semibold leading-snug text-zinc-800 dark:text-zinc-300"
+        >
           {{ item.description }}
         </span>
         <span class="leading-snug">
-          Quantity: <span class="font-semibold text-md">{{ item.quantity }}</span>
+          Quantity:
+          <span class="text-md font-semibold">{{ item.quantity }}</span>
         </span>
         <button
           class="flex items-center justify-center rounded-full border border-blue-200 bg-blue-300/30 p-2 text-blue-700 hover:bg-blue-300/40 dark:border-blue-600/10 dark:bg-blue-700/20 dark:text-blue-300 hover:dark:bg-blue-700/25"
@@ -103,10 +105,16 @@ if (!shoppingList.value.list) {
           <PencilSquareIcon class="h-5 w-5"></PencilSquareIcon>
         </button>
         <span class="leading-snug">
-          Price: <span class="font-semibold text-md">{{ USD.format(item.price) }}</span>
+          Price:
+          <span class="text-md font-semibold">{{
+            USD.format(item.price)
+          }}</span>
         </span>
         <span class="leading-snug">
-          Total: <span class="font-semibold text-md">{{ USD.format(item.total) }}</span>
+          Total:
+          <span class="text-md font-semibold">{{
+            USD.format(item.total)
+          }}</span>
         </span>
         <button
           class="flex items-center justify-center rounded-full border border-red-200 bg-red-300/30 p-2 text-red-700 hover:bg-red-300/40 dark:border-red-600/10 dark:bg-red-700/20 dark:text-red-300 hover:dark:bg-red-700/25"

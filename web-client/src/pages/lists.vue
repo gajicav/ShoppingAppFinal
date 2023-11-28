@@ -28,7 +28,11 @@ if (useRoute().name === '/lists' && lists.value.length) {
 }
 
 onBeforeRouteLeave((to, from) => {
-  if (to.name === '/lists' && from.name === '/lists/[id]' && lists.value.length) {
+  if (
+    to.name === '/lists' &&
+    from.name === '/lists/[id]' &&
+    lists.value.length
+  ) {
     router.replace({
       name: '/lists/[id]',
       params: { id: lists.value[0].id.toString() }
@@ -42,7 +46,12 @@ definePage({
 </script>
 <template>
   <NavHeader :open="openSidebar" @open="openSidebar = true"></NavHeader>
-  <SidebarNav :open="openSidebar" :lists="lists" @close="openSidebar = false" @update="refresh"></SidebarNav>
+  <SidebarNav
+    :open="openSidebar"
+    :lists="lists"
+    @close="openSidebar = false"
+    @update="refresh"
+  ></SidebarNav>
 
   <main
     class="mx-auto mt-[var(--header-height)] max-w-[var(--content-max-width)] pr-[var(--content-padding)] pt-[var(--content-padding)] md:pl-[calc(var(--sidebar-width)+var(--content-padding))]"

@@ -8,6 +8,7 @@ interface SLResponse {
   id: number
   description: string
   count: number
+  total: number
 }
 
 interface SLItemInput {

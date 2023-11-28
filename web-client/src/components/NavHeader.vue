@@ -7,7 +7,7 @@ defineProps<{
 }>()
 
 defineEmits<{
-  (e: 'open'): void
+  open: []
 }>()
 </script>
 
@@ -16,7 +16,7 @@ defineEmits<{
     class="fixed left-0 right-0 top-0 z-30 flex h-14 items-center overflow-hidden border-b border-zinc-200 bg-zinc-100 px-[var(--content-padding)] py-3 text-zinc-600 dark:border-zinc-750 dark:bg-zinc-900 dark:text-zinc-300"
   >
     <div
-      class="mx-auto inline-flex w-full max-w-[var(--content-max-width)] items-center justify-between"
+      class="mx-auto inline-flex w-full max-w-[var(--content-max-width)] items-center justify-between px-[var(--content-padding)]"
     >
       <div class="flex items-center">
         <button
@@ -40,10 +40,6 @@ defineEmits<{
         <div
           class="ml-6 flex items-center border-l border-zinc-200 pl-6 dark:border-zinc-750"
         >
-          <button type="button" class="mr-6">
-            <span class="sr-only">Toggle search</span>
-            <MagnifyingGlassIcon class="h-6 w-6"></MagnifyingGlassIcon>
-          </button>
           <ThemeSwitcher></ThemeSwitcher>
         </div>
       </nav>

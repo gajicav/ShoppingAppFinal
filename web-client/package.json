@@ -21,7 +21,8 @@
     "@vueuse/core": "^10.6.1",
     "@vueuse/integrations": "^10.6.1",
     "async-validator": "^4.2.5",
-    "vue": "^3.3.9"
+    "vue": "^3.3.9",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^2.1.3",

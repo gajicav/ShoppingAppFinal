@@ -1,4 +1,8 @@
-# ShopALong - Group 4 Final Project
+# Shopping List - Group 4 Final Project
+
+# Requirements:
+
+You need maven to build the project. The web-client dir needs nodejs to build, and can be ran using 'npm run dev'.
 
 ## Design Document
 

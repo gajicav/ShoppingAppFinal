@@ -27,6 +27,9 @@ help you keep track of your purchases and spending.
 ![Untitled](https://github.com/gajicav/ShoppingAppFinal/assets/89746050/0086308b-8ed0-4ae9-b3f8-3f851c220188)
 
 ### SpringDoc Documentation with Swagger UI
+URLs to see the documentation once you run
+- http://localhost:8080/swagger-ui/index.html
+- http://localhost:8080/api-docs
 ![sl-controller](https://github.com/gajicav/ShoppingAppFinal/assets/112514952/2db759e0-d370-4462-9036-bc7a5d7c6a38)
 ![sl-items-controller](https://github.com/gajicav/ShoppingAppFinal/assets/112514952/255acefc-723a-4420-a70d-80b9c0ec17bb)
 ![schemas](https://github.com/gajicav/ShoppingAppFinal/assets/112514952/29121647-41ee-4b9b-8a30-1a216ee03e1f)

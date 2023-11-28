@@ -1,18 +1,25 @@
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueRouter from 'unplugin-vue-router/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  clearScreen: false,
+  build: {
+    sourcemap: true,
+    outDir: '../src/main/resources/static'
+  },
   plugins: [
     VueRouter({
       dataFetching: true
     }),
-    Vue()
+    Vue(),
+    AutoImport({
+      imports: [VueRouterAutoImports]
+    })
   ],
-  build: {
-    outDir: '../src/main/resources/static'
-  },
   server: {
     proxy: {
       '/api': {

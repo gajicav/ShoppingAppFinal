@@ -1,6 +1,5 @@
 <script lang="ts">
 import { fetchShoppingLists } from '../typescript/api.ts'
-import { defineLoader, definePage } from 'vue-router/auto'
 
 export const useShoppingLists = defineLoader(
   async (): Promise<SLResponse[]> => {
@@ -12,11 +11,10 @@ export const useShoppingLists = defineLoader(
 import { ref } from 'vue'
 import SidebarNav from '../components/SidebarNav.vue'
 import NavHeader from '../components/NavHeader.vue'
-import { useRouter } from 'vue-router/auto'
 
 const openSidebar = ref<boolean>(false)
 
-const { data: shoppingLists } = useShoppingLists()
+const { data: shoppingLists, refresh } = useShoppingLists()
 
 if (shoppingLists.value.length) {
   useRouter().replace('/lists/' + shoppingLists.value[0].id.toString())
@@ -32,6 +30,7 @@ definePage({
     :open="openSidebar"
     :lists="shoppingLists"
     @close="openSidebar = false"
+    @created-list="refresh"
   ></SidebarNav>
 
   <main class="mt-[var(--header-height)] h-full p-[var(--content-padding)]">

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router/auto'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { useAsyncValidator } from '@vueuse/integrations/useAsyncValidator'
 import { listRules } from '../typescript/validation.ts'
@@ -12,7 +11,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  close
+  close: any
+  createdList: any
 }>()
 
 const sidebar = ref<HTMLElement | null>(null)
@@ -49,13 +49,13 @@ watch(
 
 async function doSubmit(list: SLInput) {
   const created = await createShoppingList(list)
-
-  await useRouter().replace('/lists/' + created.id.toString())
+  if (created) useRouter().replace('/lists/' + id)
+  useRouter().push('/lists/' + id)
 }
 
 const form: SLInput = reactive({ description: '' })
 
-const { pass, errorFields } = useAsyncValidator(form, listRules)
+const { pass } = useAsyncValidator(form, listRules)
 </script>
 
 <template>
@@ -73,56 +73,57 @@ const { pass, errorFields } = useAsyncValidator(form, listRules)
     />
   </Transition>
 
-  <aside id="sidebar-nav" ref="sidebar" class="sidebar" :class="{ open }">
+  <aside id="sidebar-nav" ref="sidebar" class="sidebar" :class="{ open: open }">
     <nav
       aria-labelledby="sidebar-label"
-      class="mb-3 border-b pb-3 dark:border-zinc-750"
+      class="overflow-hidden pt-[var(--content-padding)]"
       v-if="lists.length"
     >
       <h5
         id="sidebar-label"
-        class="border-b border-zinc-200 pb-2 font-semibold leading-snug text-zinc-500 dark:border-zinc-800 dark:text-zinc-400"
+        class="border-b border-zinc-200 pb-2.5 font-semibold leading-snug text-zinc-500 dark:border-zinc-800 dark:text-zinc-400"
       >
         Shopping Lists
       </h5>
-      <ul class="overflow-y-auto font-semibold">
-        <li v-for="list in lists" :key="list.id" class="mt-2">
-          <router-link
-            :to="'/lists/' + list.id.toString()"
-            class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-800"
-            exact-active-class="bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-750"
-          >
-            <span class="overflow-hidden overflow-ellipsis whitespace-nowrap">{{
-              list.description
-            }}</span>
-            <span
-              class="ml-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-400/60 p-3 text-sm text-blue-700 dark:bg-blue-600/60 dark:text-blue-200"
-              >{{ list.count }}</span
+      <div class="max-h-full">
+        <ul class="overflow-y-scroll pt-3 font-semibold">
+          <li v-for="list in lists" :key="list.id" class="mb-2">
+            <router-link
+              :to="'/lists/' + list.id.toString()"
+              class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+              exact-active-class="bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-750"
             >
-          </router-link>
-        </li>
-      </ul>
+              <span
+                class="overflow-hidden overflow-ellipsis whitespace-nowrap"
+                >{{ list.description }}</span
+              >
+              <span
+                class="ml-3 inline-flex h-3 w-3 items-center justify-center rounded-full bg-blue-400/60 p-3 text-sm text-blue-700 dark:bg-blue-600/60 dark:text-blue-200"
+                aria-label="list size"
+                >{{ list.count }}</span
+              >
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </nav>
-    <div class="mt-auto border-zinc-200 py-3 dark:border-t-zinc-750">
-      <div
-        class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-800"
-      >
+    <div
+      class="mt-1 border-t border-zinc-200 px-2 pb-[var(--content-padding)] pt-3 dark:border-zinc-750"
+    >
+      <div class="flex items-center">
         <input
           v-model="form.description"
-          class="backdrop- h-full w-full rounded-none p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
-          :class="{
-            'red-400 dark:red-600 placeholder-red-700 focus:border-red-500 focus:ring-red-500':
-              errorFields?.description?.length
-          }"
+          class="block h-8 min-w-0 flex-grow rounded-full border border-zinc-300 bg-zinc-200 px-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:border-zinc-750 dark:bg-zinc-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           type="text"
           placeholder="New list"
         />
         <button
-          type="submit"
+          type="button"
           :disabled="!pass"
           @click="doSubmit(form)"
-          class="ml-3 flex h-full items-center justify-center rounded-full bg-blue-400/60 p-1.5 text-sm text-blue-700 hover:bg-blue-400/75 dark:bg-blue-600/60 dark:text-blue-200 hover:dark:dark:bg-blue-600/75"
+          class="ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-blue-400/60 text-blue-700 hover:bg-blue-400/75 disabled:opacity-50 dark:bg-blue-600/60 dark:text-blue-200 hover:dark:dark:bg-blue-600/75"
         >
+          <span class="sr-only">Submit List</span>
           <PlusIcon class="h-5 w-5"></PlusIcon>
         </button>
       </div>
@@ -132,7 +133,7 @@ const { pass, errorFields } = useAsyncValidator(form, listRules)
 
 <style scoped>
 .sidebar {
-  @apply z-20 border-r border-zinc-200 dark:border-zinc-750;
+  @apply z-20 flex max-h-full flex-col border-r border-zinc-200 dark:border-zinc-750;
   width: var(--sidebar-width);
   top: var(--header-height);
   left: max(var(--content-padding), calc(50% - var(--content-max-width) / 2));
@@ -142,7 +143,6 @@ const { pass, errorFields } = useAsyncValidator(form, listRules)
   transition:
     opacity 500ms,
     transform 200ms ease;
-  padding: 1em var(--content-padding) 1em 0;
 
   @media not all and (min-width: theme('screens.md')) {
     @apply bg-zinc-100 dark:bg-zinc-900;
@@ -158,7 +158,6 @@ const { pass, errorFields } = useAsyncValidator(form, listRules)
       transition:
         opacity 200ms,
         transform 300ms cubic-bezier(0.15, 0.1, 0.25, 1);
-      padding: var(--content-padding);
     }
   }
 }

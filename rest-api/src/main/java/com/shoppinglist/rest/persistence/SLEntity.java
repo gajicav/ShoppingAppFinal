@@ -1,6 +1,6 @@
 package com.shoppinglist.rest.persistence;
 
-import com.shoppinglist.rest.input.SLInput;
+import com.shoppinglist.rest.dto.SLInput;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

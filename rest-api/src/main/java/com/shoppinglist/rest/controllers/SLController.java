@@ -1,36 +1,25 @@
 package com.shoppinglist.rest.controllers;
 
-import com.shoppinglist.rest.input.SLInput;
-import com.shoppinglist.rest.models.SLItemModel;
-import com.shoppinglist.rest.models.SLItemRepresentationModelAssembler;
-import com.shoppinglist.rest.models.SLModel;
-import com.shoppinglist.rest.models.SLRepresentationModelAssembler;
-import com.shoppinglist.rest.persistence.SLEntity;
-import com.shoppinglist.rest.persistence.SLItemRepository;
-import com.shoppinglist.rest.persistence.SLRepository;
+import com.shoppinglist.rest.dto.SLInput;
+import com.shoppinglist.rest.dto.*;
 import jakarta.validation.Valid;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/lists")
 public class SLController {
-    private final SLRepository lists;
-    private final SLRepresentationModelAssembler listAssembler;
-    private final SLItemRepository items;
-    private final SLItemRepresentationModelAssembler itemAssembler;
+    private final SLService lists;
+    private final SLItemService items;
 
     public SLController(
-        final SLRepository lists,
-        final SLRepresentationModelAssembler listAssembler,
-        final SLItemRepository items,
-        final SLItemRepresentationModelAssembler itemAssembler
+        final SLService lists,
+        final SLItemService items
     ) {
-        this.lists = lists;
         this.items = items;
-        this.listAssembler = listAssembler;
-        this.itemAssembler = itemAssembler;
+        this.lists = lists;
     }
 
     /**
@@ -40,8 +29,8 @@ public class SLController {
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CollectionModel<SLModel> fetchLists() {
-        return listAssembler.toCollectionModel(lists.findAll());
+    public List<SLRepresentation> fetchLists() {
+        return lists.all();
     }
 
     /**
@@ -52,8 +41,8 @@ public class SLController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SLModel fetchList(@PathVariable final Long id) {
-        return listAssembler.toModel(lists.findById(id).orElseThrow());
+    public SLRepresentation fetchList(@PathVariable final Long id) {
+        return lists.one(id);
     }
 
     /**
@@ -64,8 +53,8 @@ public class SLController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SLModel createList(@Valid @RequestBody final SLInput input) {
-        return listAssembler.toModel(lists.save(new SLEntity(input)));
+    public SLRepresentation createList(@Valid @RequestBody final SLInput input) {
+        return lists.post(input);
     }
 
     /**
@@ -76,11 +65,8 @@ public class SLController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SLModel updateList(@Valid @RequestBody final SLInput input, @PathVariable final Long id) {
-        return listAssembler.toModel(
-            lists.findById(id)
-                .map(list -> lists.save(list.merge(input)))
-                .orElseThrow());
+    public SLRepresentation updateList(@Valid @RequestBody final SLInput input, @PathVariable final Long id) {
+        return lists.put(input, id);
     }
 
     /**
@@ -91,7 +77,7 @@ public class SLController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteList(@PathVariable final Long id) {
-        lists.deleteById(id);
+        lists.delete(id);
     }
 
 
@@ -103,7 +89,7 @@ public class SLController {
      */
     @GetMapping("/{id}/items")
     @ResponseStatus(HttpStatus.OK)
-    public CollectionModel<SLItemModel> findItems(@PathVariable final Long id) {
-        return itemAssembler.toCollectionModel(items.findByListId(id).orElseThrow());
+    public List<SLItemRepresentation> findItems(@PathVariable final Long id) {
+        return items.find(id);
     }
 }

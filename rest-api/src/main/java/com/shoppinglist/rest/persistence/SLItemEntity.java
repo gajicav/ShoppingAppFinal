@@ -1,6 +1,6 @@
 package com.shoppinglist.rest.persistence;
 
-import com.shoppinglist.rest.input.SLItemInput;
+import com.shoppinglist.rest.dto.SLItemInput;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,14 +38,10 @@ public class SLItemEntity {
     }
 
     public SLItemEntity(SLItemInput input) {
-        this.update(input);
+        this.merge(input);
     }
 
-    public BigDecimal getTotal() {
-        return price.multiply(new BigDecimal(quantity));
-    }
-
-    public SLItemEntity update(@NonNull SLItemInput input) {
+    public SLItemEntity merge(@NonNull SLItemInput input) {
         this.description = input.description();
         this.price = input.price();
         this.quantity = input.quantity();

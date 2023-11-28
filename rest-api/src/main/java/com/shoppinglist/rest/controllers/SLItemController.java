@@ -1,40 +1,25 @@
 package com.shoppinglist.rest.controllers;
 
-import com.shoppinglist.rest.input.SLItemInput;
-import com.shoppinglist.rest.models.SLItemModel;
-import com.shoppinglist.rest.models.SLItemRepresentationModelAssembler;
-import com.shoppinglist.rest.models.SLModel;
-import com.shoppinglist.rest.models.SLRepresentationModelAssembler;
-import com.shoppinglist.rest.persistence.SLItemEntity;
-import com.shoppinglist.rest.persistence.SLItemRepository;
-import com.shoppinglist.rest.persistence.SLRepository;
+import com.shoppinglist.rest.dto.SLItemInput;
+import com.shoppinglist.rest.dto.*;
 import jakarta.validation.Valid;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriTemplate;
 
-import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/items")
 public class SLItemController {
-    private static final UriTemplate LIST_URI_TEMPLATE = new UriTemplate("/api/lists/{id}");
-    private final SLRepository lists;
-    private final SLRepresentationModelAssembler listAssembler;
-    private final SLItemRepository items;
-    private final SLItemRepresentationModelAssembler itemAssembler;
+    private final SLService lists;
+    private final SLItemService items;
 
     public SLItemController(
-        final SLRepository lists,
-        final SLRepresentationModelAssembler listAssembler,
-        final SLItemRepository items,
-        final SLItemRepresentationModelAssembler itemAssembler
+        final SLService lists,
+        final SLItemService items
     ) {
         this.lists = lists;
         this.items = items;
-        this.listAssembler = listAssembler;
-        this.itemAssembler = itemAssembler;
     }
 
     /**
@@ -44,8 +29,8 @@ public class SLItemController {
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CollectionModel<SLItemModel> fetchItems() {
-        return itemAssembler.toCollectionModel(items.findAll());
+    public List<SLItemRepresentation> fetchItems() {
+        return items.all();
     }
 
     /**
@@ -56,8 +41,8 @@ public class SLItemController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SLItemModel fetchItem(@PathVariable final Long id) {
-        return itemAssembler.toModel(items.findById(id).orElseThrow());
+    public SLItemRepresentation fetchItem(@PathVariable final Long id) {
+        return items.one(id);
     }
 
     /**
@@ -68,8 +53,8 @@ public class SLItemController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SLItemModel createItem(@Valid @RequestBody final SLItemInput input) {
-        return itemAssembler.toModel(items.save(new SLItemEntity(input)));
+    public SLItemRepresentation createItem(@Valid @RequestBody final SLItemInput input) {
+        return items.post(input);
     }
 
     /**
@@ -81,26 +66,21 @@ public class SLItemController {
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SLItemModel updateItem(@Valid @RequestBody final SLItemInput input, @PathVariable final Long id) {
-        return itemAssembler.toModel(items.save(items.findById(id).map(item -> item.update(input)).orElseThrow()));
+    public SLItemRepresentation updateItem(@Valid @RequestBody final SLItemInput input, @PathVariable final Long id) {
+        return items.put(input, id);
     }
 
     /**
      * Move an item to another list.
      *
-     * @param listUri a valid list URI.
-     * @param id      the id of the item to move.
+     * @param listId a valid list URI.
+     * @param id    the id of the item to move.
      * @return the new item.
      */
     @PutMapping("/{id}/list")
     @ResponseStatus(HttpStatus.OK)
-    public SLItemModel moveItem(@Valid @RequestBody final URI listUri, @PathVariable final Long id) {
-        final var listId = LIST_URI_TEMPLATE.match(listUri.toASCIIString()).get("id");
-        final var list = lists.findById(Long.valueOf(listId)).orElseThrow();
-        return itemAssembler.toModel(items.findById(id).map(item -> {
-            item.setList(list);
-            return items.save(item);
-        }).orElseThrow());
+    public SLItemRepresentation moveItem(@Valid @RequestBody final Long listId, @PathVariable final Long id) {
+        return items.move(listId, id);
     }
 
     /**
@@ -111,7 +91,7 @@ public class SLItemController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteItem(@PathVariable final Long id) {
-        items.deleteById(id);
+        items.delete(id);
     }
 
     /**
@@ -122,7 +102,7 @@ public class SLItemController {
      */
     @GetMapping("/{id}/list")
     @ResponseStatus(HttpStatus.OK)
-    public SLModel findList(@PathVariable final Long id) {
-        return listAssembler.toModel(lists.findByItemId(id).orElseThrow());
+    public SLRepresentation findList(@PathVariable final Long id) {
+        return lists.find(id);
     }
 }

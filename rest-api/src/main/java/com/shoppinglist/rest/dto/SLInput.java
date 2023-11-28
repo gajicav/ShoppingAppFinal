@@ -1,4 +1,4 @@
-package com.shoppinglist.rest.input;
+package com.shoppinglist.rest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

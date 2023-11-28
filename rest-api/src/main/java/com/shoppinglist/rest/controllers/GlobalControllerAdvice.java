@@ -55,7 +55,7 @@ public class GlobalControllerAdvice {
         );
 
         final var body = ProblemDetail.forStatusAndDetail(
-            HttpStatus.BAD_REQUEST, "validation failed");
+            HttpStatus.BAD_REQUEST, "Validation failed");
 
         body.setProperty("errors", errors);
         return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.BAD_REQUEST);

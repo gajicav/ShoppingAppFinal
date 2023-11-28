@@ -1,6 +1,5 @@
 <script lang="ts">
 import { fetchListItems } from '../../typescript/api.ts'
-import { defineLoader } from 'vue-router/auto'
 export const useListItems = defineLoader(async (route) => {
   return await fetchListItems(route.params.id)
 })

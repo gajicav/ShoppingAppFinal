@@ -1,6 +1,6 @@
 export async function fetchShoppingLists(): Promise<SLResponse[]> {
   const result = await fetch('/api/lists')
-  return await extractCollection(result, 'lists')
+  return await extractCollection(result)
 }
 
 export async function fetchShoppingList(id: string): Promise<SLResponse> {
@@ -8,8 +8,10 @@ export async function fetchShoppingList(id: string): Promise<SLResponse> {
   return await extractSingle(list)
 }
 
-export async function createShoppingList(list: SLInput): Promise<SLResponse> {
-  const result = await fetch(`/api/lists`, {
+export async function createShoppingList(
+  list: SLInput
+): Promise<SLResponse | null> {
+  const result = await fetch('/api/lists', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -21,7 +23,7 @@ export async function createShoppingList(list: SLInput): Promise<SLResponse> {
 
 export async function fetchListItems(id: string): Promise<SLItemResponse[]> {
   const result = await fetch(`/api/lists/${id}/items`)
-  return await extractCollection(result, 'items')
+  return await extractCollection(result)
 }
 
 export async function fetchListItem(id: string): Promise<SLItemResponse> {
@@ -35,11 +37,9 @@ async function extractJsonOrError(result: Response) {
   return await result.json()
 }
 
-export async function extractCollection(result: Response, propName: string) {
+export async function extractCollection(result: Response) {
   try {
-    return await extractJsonOrError(result).then(
-      (res) => res['_embedded'][propName]
-    )
+    return await extractJsonOrError(result)
   } catch (e) {
     console.error('Failed to extract collection from json response', e)
   }
@@ -48,9 +48,11 @@ export async function extractCollection(result: Response, propName: string) {
 }
 
 export async function extractSingle(result: Response) {
-  return await extractJsonOrError(result)
-    .catch((e) =>
-      console.error('Failed to extract object from json response', e)
-    )
-    .then(undefined, () => [])
+  try {
+    return await extractJsonOrError(result)
+  } catch (e) {
+    console.error('Failed to extract object from json response', e)
+  }
+
+  return null
 }

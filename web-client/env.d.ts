@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 interface SLInput {
   description: string
 }
@@ -6,12 +8,6 @@ interface SLResponse {
   id: number
   description: string
   count: number
-}
-
-interface SLDetails {
-  description: string
-  count: number
-  items: SLItemResponse[]
 }
 
 interface SLItemInput {

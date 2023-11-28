@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sidebar-width: 18rem;
+    --content-padding: 1.5rem;
+    --header-height: 3.5rem;
+    --content-max-width: 86rem;
+  }
+}

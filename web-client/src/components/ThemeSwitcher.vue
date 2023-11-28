@@ -76,7 +76,7 @@ const themes = [
       </span>
     </ListboxButton>
     <ListboxOptions
-      class="absolute right-2 top-16 z-50 w-36 overflow-hidden rounded-xl bg-zinc-100 py-1 text-sm font-semibold text-zinc-700 shadow-lg ring-1 ring-zinc-900/10 dark:bg-zinc-900 dark:text-zinc-200 dark:ring-white/10"
+      class="fixed right-2 top-16 z-50 w-36 overflow-hidden rounded-xl bg-zinc-100 py-1 text-sm font-semibold text-zinc-700 shadow-lg ring-1 ring-zinc-900/10 dark:bg-zinc-900 dark:text-zinc-200 dark:ring-white/10"
     >
       <ListboxOption
         v-for="(theme, index) in themes"

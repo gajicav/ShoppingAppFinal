@@ -11,8 +11,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  close: any
-  createdList: any
+  close: []
+  update: []
 }>()
 
 const sidebar = ref<HTMLElement | null>(null)
@@ -47,10 +47,18 @@ watch(
   () => emit('close')
 )
 
+const router = useRouter()
+
 async function doSubmit(list: SLInput) {
   const created = await createShoppingList(list)
-  if (created) useRouter().replace('/lists/' + id)
-  useRouter().push('/lists/' + id)
+
+  if (created) {
+    emit('update')
+    router.replace({
+      name: '/lists/[id]',
+      params: { id: created.id.toString() }
+    })
+  }
 }
 
 const form: SLInput = reactive({ description: '' })
@@ -73,10 +81,39 @@ const { pass } = useAsyncValidator(form, listRules)
     />
   </Transition>
 
-  <aside id="sidebar-nav" ref="sidebar" class="sidebar" :class="{ open: open }">
+  <aside
+    id="sidebar-nav"
+    ref="sidebar"
+    class="sidebar overflow-hidden"
+    :class="{ open: open }"
+  >
+    <section class="mt-[var(--content-padding)] px-[var(--content-padding)]">
+      <h5
+        class="border-b border-zinc-200 pb-2.5 font-semibold leading-snug text-zinc-500 dark:border-zinc-800 dark:text-zinc-400"
+      >
+        Add List
+      </h5>
+      <div class="flex items-center pt-3">
+        <input
+          v-model="form.description"
+          class="block h-8 min-w-0 flex-grow rounded-full border border-zinc-300 bg-zinc-200 px-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:border-zinc-750 dark:bg-zinc-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          type="text"
+          placeholder="Description"
+        />
+        <button
+          type="button"
+          :disabled="!pass"
+          @click="doSubmit(form)"
+          class="ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-blue-400/60 text-blue-700 hover:bg-blue-400/75 disabled:opacity-50 dark:bg-blue-600/60 dark:text-blue-200 hover:dark:dark:bg-blue-600/75"
+        >
+          <span class="sr-only">Submit List</span>
+          <PlusIcon class="h-5 w-5"></PlusIcon>
+        </button>
+      </div>
+    </section>
     <nav
       aria-labelledby="sidebar-label"
-      class="overflow-hidden pt-[var(--content-padding)]"
+      class="mt-[var(--content-padding)] overflow-y-scroll px-[var(--content-padding)]"
       v-if="lists.length"
     >
       <h5
@@ -86,10 +123,10 @@ const { pass } = useAsyncValidator(form, listRules)
         Shopping Lists
       </h5>
       <div class="max-h-full">
-        <ul class="overflow-y-scroll pt-3 font-semibold">
+        <ul class="pt-3 font-semibold">
           <li v-for="list in lists" :key="list.id" class="mb-2">
             <router-link
-              :to="'/lists/' + list.id.toString()"
+              :to="{ name: '/lists/[id]', params: { id: list.id.toString() } }"
               class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-800"
               exact-active-class="bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-750"
             >
@@ -107,27 +144,6 @@ const { pass } = useAsyncValidator(form, listRules)
         </ul>
       </div>
     </nav>
-    <div
-      class="mt-1 border-t border-zinc-200 px-2 pb-[var(--content-padding)] pt-3 dark:border-zinc-750"
-    >
-      <div class="flex items-center">
-        <input
-          v-model="form.description"
-          class="block h-8 min-w-0 flex-grow rounded-full border border-zinc-300 bg-zinc-200 px-4 text-sm focus:border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:border-zinc-750 dark:bg-zinc-800 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          type="text"
-          placeholder="New list"
-        />
-        <button
-          type="button"
-          :disabled="!pass"
-          @click="doSubmit(form)"
-          class="ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-blue-400/60 text-blue-700 hover:bg-blue-400/75 disabled:opacity-50 dark:bg-blue-600/60 dark:text-blue-200 hover:dark:dark:bg-blue-600/75"
-        >
-          <span class="sr-only">Submit List</span>
-          <PlusIcon class="h-5 w-5"></PlusIcon>
-        </button>
-      </div>
-    </div>
   </aside>
 </template>
 
@@ -136,7 +152,7 @@ const { pass } = useAsyncValidator(form, listRules)
   @apply z-20 flex max-h-full flex-col border-r border-zinc-200 dark:border-zinc-750;
   width: var(--sidebar-width);
   top: var(--header-height);
-  left: max(var(--content-padding), calc(50% - var(--content-max-width) / 2));
+  left: max(0px, calc(50% - var(--content-max-width) / 2));
   right: auto;
   bottom: 0;
   position: fixed;

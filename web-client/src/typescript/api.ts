@@ -8,11 +8,29 @@ export async function fetchShoppingList(id: string): Promise<SLResponse> {
   return await extractSingle(list)
 }
 
+export async function deleteShoppingList(id: string) {
+  await fetch(`/api/lists/${id}`, { method: 'DELETE'})
+}
+
 export async function createShoppingList(
   list: SLInput
 ): Promise<SLResponse | null> {
   const result = await fetch('/api/lists', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(list)
+  })
+  return await extractSingle(result)
+}
+
+export async function saveShoppingList(
+  list: SLInput,
+  id: string
+): Promise<SLResponse | null> {
+  const result = await fetch(`/api/lists/${id}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -29,6 +47,10 @@ export async function fetchListItems(id: string): Promise<SLItemResponse[]> {
 export async function fetchListItem(id: string): Promise<SLItemResponse> {
   const result = await fetch(`/api/items/${id}`)
   return await extractSingle(result)
+}
+
+export async function deleteListItem(id: string) {
+  await fetch(`/api/items/${id}`, { method: 'DELETE'})
 }
 
 async function extractJsonOrError(result: Response) {
